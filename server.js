@@ -17,16 +17,10 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
 
 // routes
 app.use(require("./routes/api.js"));
+app.use(require("./routes/htmlroutes.js"));
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
   
 
-//log multiple exercises - name, type, wt, sets, reps, duration 
-//cardio/resistance
-
-//add exercises to most recent plan
-//add new exercises to new plan
-//view combined wt of mult exercises from past 7 workouts on stats pg
-//view total duration of each workout from past 7 workouts on stats pg
