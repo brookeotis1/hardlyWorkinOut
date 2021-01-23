@@ -50,27 +50,48 @@ router.get("api/workouts/range", (req, res) => {
 });
 
 
-//not sure how to do or where to put aggregate - render stats? 
+router.get("api/workouts/range", (req, res) => {
+    db.Workout.aggregate(
+    [
+        {$match: {} },
+        {$group: {_id: "$duration", 
+        totalDuration: {$sum: "$exercises.duration"}} }
+    ]
+    .then(results => {
+        console.log(results)
+        res.json(results);
+    })
+    .catch(err => {
+        res.json(err)
+    
+    }));
+});
+ 
+router.delete("/delete/:id", (req, res) => {
+    db.Workout.remove(
+      {
+        _id: mongojs.ObjectID(req.params.id)
+      },
+      (error, data) => {
+        if (error) {
+          res.send(error);
+        } else {
+          res.send(data);
+        }
+      }
+    );
+  });
+  
+  router.delete("/clearall", (req, res) => {
+    db.Workout.remove({}, (error, response) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(response);
+      }
+    });
+  });
 
-// db.Workout.aggregate(
-//     [
-//         {$match: {} },
-//         {$group: {_id: "$duration", total: {$sum: "$total"}} }
-//     ]
-// );
-
-// const aggregate = Model.aggregate([
-//     { $duration: {noidea: 1 } },
-// ]);
-// Model.
-//     aggregate([{ $match: { totalDuration: $duration}}])
-
-// totalDuration(),
-//     result = db.Workout.aggregate([
-//         { "$match": {"_id" : "$duration", "total": {"$sum" : total}}},
-        
-//     ]
-//     );
 
 
 
