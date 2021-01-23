@@ -1,5 +1,6 @@
 
 const router = require("express").Router();
+const { Model } = require("mongoose");
 const  db  = require("../models");
 //const Workout = require("../models/workout.js");
 //const { db } = require("../models/cardio.js");
@@ -49,87 +50,31 @@ router.get("api/workouts/range", (req, res) => {
 });
 
 
-// router.post("/api/workout", ({ body }, res) => {
-//     Workout.create(body)
-//     .then(dbWorkout => {
-//         res.json(dbWorkout);
-//     })
-//     .catch(err => {
-//         res.status(400).json(err);
-//     });
-// });
+//not sure how to do or where to put aggregate - render stats? 
 
+// db.Workout.aggregate(
+//     [
+//         {$match: {} },
+//         {$group: {_id: "$duration", total: {$sum: "$total"}} }
+//     ]
+// );
 
+// const aggregate = Model.aggregate([
+//     { $duration: {noidea: 1 } },
+// ]);
+// Model.
+//     aggregate([{ $match: { totalDuration: $duration}}])
 
-// router.get("/api/workout", (req, res) => {
-//     Workout.find({})
-//     .then(dbWorkout => {
-//         res.json(dbWorkout);
-//     })
-//     .catch(err => {
-//         res.status(400).json(err);
-//     });
-// });
-
-
-
-// router.post("/api/resistance", ({ body }, res) => {
-//     Resistance.create(body)
-//     .then(dbResistance => {
-//         res.json(dbResistance);
-//     })
-//     .catch(err => {
-//         res.status(400).json(err);
-//     });
-// });
-
-
-
-// router.get("/api/resistance", (req, res) => {
-//     Resistance.find({})
-//     .then(dbResistance => {
-//         res.json(dbResistance);
-//     })
-//     .catch(err => {
-//         res.status(400).json(err);
-//     });
-// });
+// totalDuration(),
+//     result = db.Workout.aggregate([
+//         { "$match": {"_id" : "$duration", "total": {"$sum" : total}}},
+        
+//     ]
+//     );
 
 
 
 
-
-
-// router.get("/workout", (req,res) => {
-//     db.Workout.find({})
-//     .then(dbWorkout => {
-//         res.json(dbWorkout);
-//     })
-//     .catch(err => {
-//         res.json(err);
-//     });
-// });
-
-// router.get("/resistance", (req,res) => {
-//     db.Resistance.find({})
-//     .then(dbResistance => {
-//         res.json(dbResistance);
-//     })
-//     .catch(err => {
-//         res.json(err);
-//     });
-// });
-
-
-
-//{ $addFields: { <newField>: <expression>, ... } }
 
 module.exports = router;
 
-//log multiple exercises - name, type, wt, sets, reps, duration 
-//cardio/resistance
-
-//add exercises to most recent plan
-//add new exercises to new plan
-//view combined wt of mult exercises from past 7 workouts on stats pg
-//view total duration of each workout from past 7 workouts on stats pg
